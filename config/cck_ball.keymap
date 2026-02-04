@@ -76,8 +76,8 @@
         F_layers {
             bindings = <
 &trans  &trans  &trans  &trans        &trans     &trans     &mkp MB4   &mkp MB5   &none   &trans     &trans  &trans
-&trans  &trans  &trans  &trans        &trans     &trans     &mo 3      &kp HOME   &none   &none      &trans  &bt BT_CLR
-&trans  &none   &trans  &kp CAPSLOCK  &none      &none      &mkp LCLK  &mkp RCLK  &none   &kp RIGHT  &trans  &trans
+&trans  &trans  &trans  &trans        &trans     &trans     &mkp LCLK  &mkp RCLK  &none   &none      &trans  &bt BT_CLR
+&trans  &none   &trans  &kp CAPSLOCK  &none      &none      &mkp LCLK  &mkp RCLK  &mo 3   &kp RIGHT  &trans  &trans
 &trans  &trans  &trans  &trans        &trans     &none      &none      &none      &none   &trans     &none   &trans
 &trans  &trans  &trans  &trans        &mkp LCLK  &mkp RCLK  &trans     &trans     &trans  &trans     &trans  &trans
             >;
