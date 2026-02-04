@@ -27,7 +27,7 @@
 &soft_off { hold-time-ms = <2000>; };
 
 &lt {
-    tapping-term-ms = <150>;  // Layer Tap response time (default: 200ms)
+    tapping-term-ms = <200>;  // Layer Tap response time (default: 200ms)
 };
 
 / {
