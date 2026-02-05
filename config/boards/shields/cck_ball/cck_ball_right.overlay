@@ -3,9 +3,7 @@
  *
  * SPDX-License-Identifier: MIT
  */
-
-#include <dt-bindings/zmk/matrix_transform.h>
-#include <zephyr/dt-bindings/input/input-event-codes.h>
+ 
 #include "cck_ball.dtsi"
 
 &default_transform {
@@ -111,15 +109,6 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        
-        // Keep automouse layer active when pressing these keys
-        continue-list = <
-            BTN_LEFT     // Left click (0x110)
-            BTN_RIGHT    // Right click (0x111)
-            BTN_MIDDLE   // Middle click (0x112)
-            BTN_SIDE     // Mouse button 4 (0x113)
-            BTN_EXTRA    // Mouse button 5 (0x114)
-        >;
     };
 };
 
