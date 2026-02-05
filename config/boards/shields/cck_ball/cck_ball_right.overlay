@@ -109,6 +109,15 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
+        
+        // Keep automouse layer active when pressing these keys
+        continue-list = <
+            LCLK     // Left click
+            RCLK     // Right click
+            MCLK     // Middle click
+            MB4      // Mouse button 4 (back)
+            MB5      // Mouse button 5 (forward)
+        >;
     };
 };
 
