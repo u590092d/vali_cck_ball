@@ -115,6 +115,12 @@
         };
     };
 
+    // Standard input listener for basic trackball functionality (cursor movement)
+    trackball_listener {
+        compatible = "zmk,input-listener";
+        device = <&trackball>;
+    };
+
     // Input Behavior Listener for trackball - auto-toggle Layer 1 on movement
     trackball_mmv_ibl {
         compatible = "zmk,input-behavior-listener";
