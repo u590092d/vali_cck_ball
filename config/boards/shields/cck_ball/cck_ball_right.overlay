@@ -105,6 +105,15 @@
 
 
 / {
+    behaviors {
+        // Auto-toggle layer behavior
+        ib_tog_layer: ib_tog_layer {
+            compatible = "zmk,input-behavior-tog-layer";
+            #binding-cells = <1>;
+            time-to-live-ms = <2000>;
+        };
+    };
+
     // Input Behavior Listener for trackball - auto-toggle Layer 1 on movement
     trackball_mmv_ibl {
         compatible = "zmk,input-behavior-listener";

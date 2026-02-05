@@ -61,14 +61,6 @@
             tapping-term-ms = <200>;
             bindings = <&mo>, <&mkp>;
         };
-
-        // Auto-toggle Layer 1 on trackball input, keeps layer active for 2000ms
-        // Timer resets on each mouse button press
-        ib_tog_layer: ib_tog_layer {
-            compatible = "zmk,input-behavior-tog-layer";
-            #binding-cells = <1>;
-            time-to-live-ms = <2000>;
-        };
     };
 
     keymap {
