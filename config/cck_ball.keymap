@@ -61,6 +61,13 @@
             tapping-term-ms = <200>;
             bindings = <&mo>, <&mkp>;
         };
+
+        // Auto-layer for mouse buttons - keeps Layer 1 active when mouse buttons are pressed
+        mouse_auto_layer: mouse_auto_layer {
+            compatible = "zmk,behavior-auto-layer";
+            #binding-cells = <1>;
+            continue-list = <LCLK RCLK MCLK MB4 MB5>;
+        };
     };
 
     keymap {
