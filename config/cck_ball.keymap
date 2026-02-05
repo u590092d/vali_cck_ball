@@ -12,6 +12,23 @@
 
 &msc_input_listener { input-processors = <&zip_scroll_scaler 2 1>; };
 
+// マウスボタン押下でautomouseレイヤー（Layer 1）を延長
+&mkp_input_listener {
+    input-processors = <&zip_temp_layer 1 500>;  // Layer 1を500ms延長
+};
+
+// automouseレイヤー設定（トラックボール移動で有効化）
+&zip_temp_layer {
+    excluded-positions = <
+        // Layer 1の右側マウスボタンの位置
+        // Row 1 (0-indexed): MB4=6, MB5=7
+        // Row 2: LCLK=18, MCLK=19
+        // Row 3: LCLK=30, RCLK=31, mo 3=32
+        // Row 5: LCLK=52, RCLK=53
+        6 7 18 19 30 31 32 52 53
+    >;
+};
+
 &msc {
     acceleration-exponent = <0>;      // 0
     time-to-max-speed-ms = <300>;       // 300

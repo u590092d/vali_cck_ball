@@ -4,7 +4,6 @@
  * SPDX-License-Identifier: MIT
  */
  
-#include <zephyr/dt-bindings/input/input-event-codes.h>
 #include "cck_ball.dtsi"
 
 &default_transform {
@@ -106,36 +105,11 @@
 
 
 / {
-    behaviors {
-        // Auto-toggle layer behavior
-        ib_tog_layer: ib_tog_layer {
-            compatible = "zmk,input-behavior-tog-layer";
-            #binding-cells = <1>;
-            time-to-live-ms = <2000>;
-        };
-    };
-
-    // Standard input listener for basic trackball functionality (cursor movement)
+    // トラックボール入力リスナー - automouseレイヤー（Layer 1）を自動制御
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-    };
-
-    // Input Behavior Listener for trackball - auto-toggle Layer 1 on movement
-    trackball_mmv_ibl {
-        compatible = "zmk,input-behavior-listener";
-        device = <&trackball>;
-        
-        // Only active on Layer 0 (default layer)
-        layers = <0>;
-        
-        // Configure for mouse movement events
-        evt-type = <INPUT_EV_REL>;
-        x-input-code = <INPUT_REL_X>;
-        y-input-code = <INPUT_REL_Y>;
-        
-        // Auto-toggle Layer 1 on trackball movement
-        bindings = <&ib_tog_layer 1>;
+        input-processors = <&zip_temp_layer 1 500>;  // Layer 1を500ms有効化
     };
 };
 
