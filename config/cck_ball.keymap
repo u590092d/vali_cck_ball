@@ -12,20 +12,20 @@
 
 &msc_input_listener { input-processors = <&zip_scroll_scaler 2 1>; };
 
-// マウスボタン押下でautomouseレイヤー（Layer 1）を延長
+// マウスボタン押下でautomouseレイヤー（Layer 3）を延長
 
 &mkp_input_listener {
-    input-processors = <&zip_temp_layer 1 500>;  // Layer 1を500ms延長
+    input-processors = <&zip_temp_layer 3 500>;  // Layer 3を500ms延長
 };
 
 // automouseレイヤー設定（トラックボール移動で有効化）
 
 &zip_temp_layer {
     excluded-positions = <
-        // Layer 1の右側マウスボタンの位置
+        // Layer 3の右側マウスボタンの位置
         // Row 1 (0-indexed): MB4=6, MB5=7
         // Row 2: LCLK=18, MCLK=19
-        // Row 3: LCLK=30, RCLK=31, mo 3=32
+        // Row 3: LCLK=30, RCLK=31, mo 5=32
         // Row 5: LCLK=52, RCLK=53
         6 7 18 19 30 31 32 52 53
     >;
@@ -71,7 +71,7 @@
     };
 
     behaviors {
-        // Middle click on tap, Layer 3 on hold
+        // Middle click on tap, Layer 5 (scroll) on hold
 
         lt_mclk: layer_tap_middle_click {
             compatible = "zmk,behavior-hold-tap";
@@ -89,23 +89,47 @@
 
         QWERTY {
             bindings = <
-&lt 5 TAB         &kp N1        &kp N2        &kp N3     &kp N4       &kp N5       &kp N6       &kp N7  &kp N8     &kp N9   &kp N0      &kp BACKSPACE
-&lt 5 TAB         &kp Q         &kp W         &kp E      &kp R        &kp T        &kp Y        &kp U   &kp I      &kp O    &kp P       &kp BACKSPACE
-&kp LEFT_SHIFT    &kp A         &kp S         &kp D      &kp F        &kp G        &kp H        &kp J   &kp K      &kp L    &lt 3 SEMI  &kp ENTER
+&lt 7 TAB         &kp N1        &kp N2        &kp N3     &kp N4       &kp N5       &kp N6       &kp N7  &kp N8     &kp N9   &kp N0      &kp BACKSPACE
+&lt 7 TAB         &kp Q         &kp W         &kp E      &kp R        &kp T        &kp Y        &kp U   &kp I      &kp O    &kp P       &kp BACKSPACE
+&kp LEFT_SHIFT    &kp A         &kp S         &kp D      &kp F        &kp G        &kp H        &kp J   &kp K      &kp L    &lt 5 SEMI  &kp ENTER
 &kp LEFT_SHIFT    &kp Z         &kp X         &kp C      &kp V        &kp B        &kp N        &kp M   &kp COMMA  &kp DOT  &kp SLASH   &kp LEFT_SHIFT
-&kp LEFT_CONTROL  &kp LEFT_WIN  &kp LEFT_ALT  &lt 6 ESC  &lt 3 SPACE  &lt 3 LANG1  &lt 4 LANG2  &mo 2   &none      &none    &none       &to 8
+&kp LEFT_CONTROL  &kp LEFT_WIN  &kp LEFT_ALT  &lt 8 ESC  &lt 5 SPACE  &lt 5 LANG1  &lt 6 LANG2  &mo 4   &none      &none    &none       &to 1
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
-        // Layer 1: Mouse Active Layer (Auto Mouse) & Functions
+        // Layer 1: Gaming
+
+        layer_1 {
+            bindings = <
+&kp TAB    &kp N1    &kp N2    &kp N3         &kp N4     &kp N5         &kp N6  &kp N7     &kp N8     &kp N9   &kp N0    &kp BSPC
+&kp TAB    &kp Q     &kp W     &kp E          &kp R      &kp T          &kp Y   &kp U      &kp I      &kp O    &kp P     &kp BSPC
+&kp LSHFT  &kp A     &kp S     &lt 2 D        &kp F      &kp G          &kp H   &kp J      &kp K      &kp L    &kp SEMI  &kp RET
+&kp LSHFT  &kp Z     &kp X     &kp C          &kp V      &kp LA(LCTRL)  &kp N   &kp M      &kp COMMA  &kp DOT  &kp FSLH  &kp FSLH
+&kp LCTRL  &kp LALT  &kp LALT  &kp LC(SPACE)  &kp SPACE  &kp LS(SPACE)  &to 0   &kp LS(Y)  &trans     &trans   &trans    &to 0
+            >;
+        };
+
+        // Layer 2: Gaming Sub
+
+        layer_2 {
+            bindings = <
+&trans  &trans  &trans  &trans         &trans         &trans         &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans         &trans         &trans         &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans         &kp LA(LCTRL)  &trans         &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans         &trans         &trans         &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &kp LS(LC(Z))  &kp LC(Z)      &kp LC(GRAVE)  &trans  &trans  &trans  &trans  &trans  &trans
+            >;
+        };
+
+        // Layer 3: Mouse Active Layer (Auto Mouse) & Functions
 
         F_layers {
             bindings = <
 &trans  &trans  &trans  &trans        &trans  &trans  &mkp MB4   &mkp MB5         &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans        &trans  &trans  &mkp LCLK  &lt_mclk 3 MCLK  &trans  &trans  &trans  &trans
-&trans  &none   &trans  &kp CAPSLOCK  &none   &none   &mkp MB3   &mkp RCLK        &mo 3   &trans  &trans  &trans
+&trans  &trans  &trans  &trans        &trans  &trans  &mkp LCLK  &lt_mclk 5 MCLK  &trans  &trans  &trans  &trans
+&trans  &none   &trans  &kp CAPSLOCK  &none   &none   &mkp MB3   &mkp RCLK        &mo 5   &trans  &trans  &trans
 &trans  &trans  &trans  &trans        &trans  &none   &none      &none            &none   &trans  &none   &trans
 &trans  &trans  &trans  &trans        &trans  &trans  &trans     &trans           &trans  &trans  &trans  &trans
             >;
@@ -113,7 +137,7 @@
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
-        // Layer 2: Bluetooth
+        // Layer 4: Bluetooth
 
         BT_layers {
             bindings = <
@@ -127,7 +151,7 @@
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
-        // Layer 3: Scroll Layer (with Nav/Click keys)
+        // Layer 5: Scroll Layer (with Nav/Click keys)
 
         scroll-layers {
             bindings = <
@@ -141,13 +165,13 @@
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
-        // Layer 4: Snipe / Symbols
+        // Layer 6: Snipe / Symbols
 
         snipe-layers {
             bindings = <
 &trans  &trans    &trans     &trans    &trans     &trans     &trans     &trans     &trans     &trans     &trans    &trans
 &trans  &kp EXCL  &kp AT     &kp HASH  &kp DLLR   &kp PRCNT  &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR   &kp RPAR  &trans
-&trans  &trans    &kp GRAVE  &kp PLUS  &mo 3      &trans     &trans     &kp FSLH   &kp ASTRK  &kp EQUAL  &kp PIPE  &trans
+&trans  &trans    &kp GRAVE  &kp PLUS  &mo 5      &trans     &trans     &kp FSLH   &kp ASTRK  &kp EQUAL  &kp PIPE  &trans
 &trans  &trans    &kp TILDE  &kp PIPE  &trans     &trans     &trans     &kp PRCNT  &kp AMPS   &trans     &trans    &trans
 &trans  &trans    &trans     &trans    &mkp LCLK  &mkp RCLK  &trans     &trans     &trans     &trans     &trans    &trans
             >;
@@ -155,9 +179,9 @@
             sensor-bindings = <&scroll_vertical_encoder &scroll_horizontal_encoder>;
         };
 
-        // Layer 5: Function Keys
+        // Layer 7: Function Keys
 
-        layer_5 {
+        layer_7 {
             bindings = <
 &trans  &kp F1   &kp F2   &kp F3  &kp F4  &kp F5   &trans     &trans     &trans     &trans     &trans    &trans
 &trans  &kp F6   &kp F7   &kp F8  &kp F9  &kp F10  &kp CARET  &kp AMPS   &kp ASTRK  &kp LPAR   &kp RPAR  &trans
@@ -169,9 +193,9 @@
             sensor-bindings = <&scroll_vertical_encoder &scroll_horizontal_encoder>;
         };
 
-        // Layer 6: Application & Window Control
+        // Layer 8: Application & Window Control
 
-        layer_6 {
+        layer_8 {
             bindings = <
 &trans  &trans           &trans        &trans         &trans        &trans  &trans         &trans            &trans        &trans             &trans     &trans
 &trans  &none            &kp C_VOL_DN  &kp C_MUTE     &kp C_VOL_UP  &none   &kp LC(LG(T))  &kp LG(LEFT)      &kp LG(UP)    &kp LG(RIGHT)      &none      &trans
@@ -183,33 +207,15 @@
             sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
         };
 
-        layer_7 {
+        // Layer 9
+
+        layer_9 {
             bindings = <
 &trans  &trans  &trans  &trans        &trans  &trans  &trans         &trans          &trans          &trans           &trans  &trans
 &trans  &trans  &trans  &trans        &trans  &trans  &kp PG_UP      &kp HOME        &kp UP_ARROW    &kp END          &trans  &trans
 &trans  &trans  &trans  &kp CAPSLOCK  &trans  &trans  &kp PAGE_DOWN  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &trans  &trans
 &trans  &trans  &trans  &trans        &trans  &trans  &trans         &trans          &trans          &trans           &trans  &trans
 &trans  &trans  &trans  &trans        &trans  &trans  &trans         &trans          &trans          &trans           &trans  &trans
-            >;
-        };
-
-        layer_8 {
-            bindings = <
-&kp TAB    &kp N1    &kp N2    &kp N3         &kp N4     &kp N5         &kp N6  &kp N7     &kp N8     &kp N9   &kp N0    &kp BSPC
-&kp TAB    &kp Q     &kp W     &kp E          &kp R      &kp T          &kp Y   &kp U      &kp I      &kp O    &kp P     &kp BSPC
-&kp LSHFT  &kp A     &kp S     &lt 9 D        &kp F      &kp G          &kp H   &kp J      &kp K      &kp L    &kp SEMI  &kp RET
-&kp LSHFT  &kp Z     &kp X     &kp C          &kp V      &kp LA(LCTRL)  &kp N   &kp M      &kp COMMA  &kp DOT  &kp FSLH  &kp FSLH
-&kp LCTRL  &kp LALT  &kp LALT  &kp LC(SPACE)  &kp SPACE  &kp LS(SPACE)  &to 0   &kp LS(Y)  &trans     &trans   &trans    &to 0
-            >;
-        };
-
-        layer_9 {
-            bindings = <
-&trans  &trans  &trans  &trans         &trans         &trans         &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans         &trans         &trans         &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans         &kp LA(LCTRL)  &trans         &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans         &trans         &trans         &trans  &trans  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &kp LS(LC(Z))  &kp LC(Z)      &kp LC(GRAVE)  &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
     };
