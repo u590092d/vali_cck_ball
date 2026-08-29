@@ -55,8 +55,8 @@
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        scroll-layers = <3>;
-        snipe-layers = <4>;
+        scroll-layers = <2>;
+        snipe-layers = <3>;
     };
 };
 
@@ -105,11 +105,11 @@
 
 
 / {
-    // トラックボール入力リスナー - automouseレイヤー（Layer 1）を自動制御
+    // トラックボール入力リスナー - automouseレイヤー（Layer 9）を自動制御
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        input-processors = <&zip_temp_layer 1 500>;  // Layer 1を500ms有効化
+        input-processors = <&zip_temp_layer 9 500>;  // Layer 9を500ms有効化
     };
 };
 
