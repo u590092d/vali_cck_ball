@@ -212,19 +212,5 @@
 &trans  &trans  &trans  &kp LS(LC(Z))  &kp LC(Z)      &kp LC(GRAVE)  &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
-
-        // Layer 10: Gaming Auto Mouse Layer
-        // Layer 8/9（ゲーミング）使用中にトラックボールを動かすと発動
-        // マウスボタンのみ定義、その他はすべて &trans で Layer 8/9 キーを透過
-
-        layer_10 {
-            bindings = <
-&trans  &trans  &trans  &trans  &trans  &trans  &mkp MB4   &mkp MB5         &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &mkp LCLK  &lt_mclk 3 MCLK  &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &mkp MB3   &mkp RCLK        &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans     &trans           &trans  &trans  &trans  &trans
-&trans  &trans  &trans  &trans  &trans  &trans  &trans     &trans           &trans  &trans  &trans  &trans
-            >;
-        };
     };
 };

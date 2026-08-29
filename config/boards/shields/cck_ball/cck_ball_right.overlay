@@ -5,7 +5,6 @@
  */
  
 #include "cck_ball.dtsi"
-#include <zephyr/dt-bindings/input/input-event-codes.h>
 
 &default_transform {
     col-offset = <6>;
@@ -55,12 +54,9 @@
         compatible = "pixart,pmw3610";
         reg = <0>;
         spi-max-frequency = <2000000>;
-        motion-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        /* 270° rotation: swap axes. invert-x replicates CONFIG_PMW3610_INVERT_X */
-        zephyr,axis-x = <INPUT_REL_Y>;
-        zephyr,axis-y = <INPUT_REL_X>;
-        invert-x;
-        res-cpi = <1000>;
+        irq-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        scroll-layers = <3>;
+        snipe-layers = <4>;
     };
 };
 
@@ -109,27 +105,11 @@
 
 
 / {
-    // トラックボール入力リスナー - automouseレイヤー（Layer 1）を自動制御（通常時）
+    // トラックボール入力リスナー - automouseレイヤー（Layer 1）を自動制御
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         input-processors = <&zip_temp_layer 1 500>;  // Layer 1を500ms有効化
-    };
-
-    // Layer 10 用の temp_layer プロセッサ（ゲーミング専用）
-    gaming_zip_temp_layer: gaming_zip_temp_layer {
-        compatible = "zmk,input-processor-temp-layer";
-        #input-processor-cells = <2>;
-        excluded-positions = <6 7 18 19 30 31 32 52 53>;
-    };
-
-    // ゲーミング専用トラックボールリスナー - Layer 8/9/10 でのみ発動
-    // Layer 10（Gaming Auto Mouse）を有効化してマウスボタンをアクセス可能にする
-    trackball_listener_gaming {
-        compatible = "zmk,input-listener";
-        device = <&trackball>;
-        layers = <8 9 10>;  // Layer 10アクティブ中も継続してタイマーをリセット
-        input-processors = <&gaming_zip_temp_layer 10 500>;
     };
 };
 
